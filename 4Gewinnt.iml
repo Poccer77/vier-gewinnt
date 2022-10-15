@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../guava-31.1-jre.jar!/" />
+          <root url="jar://$MODULE_DIR$/guava-31.1-jre.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
