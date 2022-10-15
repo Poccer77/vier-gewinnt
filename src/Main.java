@@ -13,12 +13,12 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
-        HashMap<Integer, Character> gameState = new HashMap<>();
+        HashMap<Integer, Character> emptyField = new HashMap<>();
 
         for (String field : Translator.t.keySet()){
-            gameState.put(Translator.t.get(field), null);
+            emptyField.put(Translator.t.get(field), null);
         }
-        ConsolePrinter.build(gameState);
+        ConsolePrinter.build(emptyField);
         System.out.println(Translator.t);
         char player;
 
@@ -27,19 +27,20 @@ public class Main {
             HashMap<String, Character> newGameState;
             player = 'x';
             do {
-                int input = InputHandler.input();
+                int input = InputHandler.input(player);
                 newGameState = InputHandler.place(input, player);
             } while (newGameState == null);
             ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            if (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState)) break;
-
+            (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState) = ' ') ?
+            System.out.println(newGameState);
             player = 'o';
             do {
-                int input = InputHandler.input();
+                int input = InputHandler.input(player);
                 newGameState = InputHandler.place(input, player);
             } while (newGameState == null);
             ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            if (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState)) break;
+            if (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState) == 'o') break;
+            System.out.println(newGameState);
         }
         System.out.println((player == 'x') ? "Spieler 1" : "Spieler 2" + " hat gewonnen!");
     }

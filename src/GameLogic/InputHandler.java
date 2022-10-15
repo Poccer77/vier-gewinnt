@@ -11,8 +11,8 @@ public class InputHandler {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static int input(){
-        System.out.println("Spieler 1 ist am Zug");
+    public static int input(char player){
+        System.out.println("Spieler " + ((player == 'x') ? "1" : "2") + " ist am Zug");
         System.out.print("Feld: ");
         String input = scanner.nextLine();
         return Integer.parseInt(input);
@@ -28,26 +28,26 @@ public class InputHandler {
             return null;
         }
 
-        else fieldToPlace = "0" + (Character.toString('@' + entrance));
+        else fieldToPlace = Integer.toString(entrance - 1) + 'A';
 
         if (gameState.get(fieldToPlace) != ' '){
             System.out.println("Spalte ist bereits gefüllt");
             return null;
         }
-        else gameState.put(fieldToPlace, player);
         fieldToPlace = dropDown(fieldToPlace, gameState);
         gameState.put(fieldToPlace, player);
         newlyOccupiedField = fieldToPlace;
         return gameState;
     }
 
-    private static String dropDown(String initialField, HashMap<String, Character> gameState){
+    private static String dropDown(String finalField, HashMap<String, Character> gameState){
         for (int i = 1; i < 6; i++){
-            if (gameState.get(initialField.charAt(0) + Character.toString(initialField.charAt(1) + 1)) != ' ') break;
-            initialField = (Integer.parseInt(String.valueOf(initialField.charAt(0))) + 1) + initialField.substring(1);
+            if (gameState.get(finalField.charAt(0) + Character.toString(finalField.charAt(1) + 1)) != ' ') break;
+            finalField = finalField.charAt(0) + Character.toString(finalField.charAt(1) + 1);
+            System.out.println(finalField);
         }
 
-        return initialField;
+        return finalField;
     }
 
     public String getNewlyOccupiedField(){return newlyOccupiedField;}

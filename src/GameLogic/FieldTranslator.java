@@ -21,9 +21,7 @@ public class FieldTranslator {
 
         HashMap<String, Character> GameState = new HashMap<>();
 
-        for (String field : translation.keySet()){
-            GameState.put(field, board.charAt(translation.get(field)));
-        }
+        for (String field : translation.keySet()) GameState.put(field, board.charAt(translation.get(field)));
 
         return GameState;
     }
