@@ -20,7 +20,6 @@ public class InputHandler {
 
     public static HashMap<String, Character> place(int entrance, char player){
         HashMap<String, Character> gameState = FieldTranslator.read(ConsolePrinter.board, Translator.t);
-
         String fieldToPlace;
 
         if (entrance < 1 || entrance > 7) {
@@ -44,7 +43,6 @@ public class InputHandler {
         for (int i = 1; i < 6; i++){
             if (gameState.get(finalField.charAt(0) + Character.toString(finalField.charAt(1) + 1)) != ' ') break;
             finalField = finalField.charAt(0) + Character.toString(finalField.charAt(1) + 1);
-            System.out.println(finalField);
         }
 
         return finalField;

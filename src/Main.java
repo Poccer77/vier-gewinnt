@@ -19,29 +19,32 @@ public class Main {
             emptyField.put(Translator.t.get(field), null);
         }
         ConsolePrinter.build(emptyField);
-        System.out.println(Translator.t);
         char player;
+        char condition;
 
         while (true) {
 
             HashMap<String, Character> newGameState;
+
             player = 'x';
             do {
                 int input = InputHandler.input(player);
                 newGameState = InputHandler.place(input, player);
             } while (newGameState == null);
             ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState) = ' ') ?
-            System.out.println(newGameState);
+            condition = DetermineWin.win(InputHandler.newlyOccupiedField, newGameState);
+            if (condition != ' ') break;
+
             player = 'o';
             do {
                 int input = InputHandler.input(player);
                 newGameState = InputHandler.place(input, player);
             } while (newGameState == null);
             ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            if (DetermineWin.win(InputHandler.newlyOccupiedField, newGameState) == 'o') break;
-            System.out.println(newGameState);
+            condition = DetermineWin.win(InputHandler.newlyOccupiedField, newGameState);
+            if (condition != ' ') break;
         }
-        System.out.println((player == 'x') ? "Spieler 1" : "Spieler 2" + " hat gewonnen!");
+
+        System.out.println((condition == 'd') ? "Unentschieden" : (((condition == 'x') ? "Spieler 1" : "Spieler 2") + " hat gewonnen!"));
     }
 }
