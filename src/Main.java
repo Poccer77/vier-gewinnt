@@ -3,9 +3,7 @@ import GameLogic.FieldTranslator;
 import GameLogic.InputHandler;
 import GameLogic.Translator;
 import WindowHandler.ConsolePrinter;
-import com.google.common.collect.HashBiMap;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 

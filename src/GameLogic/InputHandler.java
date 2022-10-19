@@ -15,7 +15,8 @@ public class InputHandler {
         System.out.println("Spieler " + ((player == 'x') ? "1" : "2") + " ist am Zug");
         System.out.print("Feld: ");
         String input = scanner.nextLine();
-        return Integer.parseInt(input);
+        try {return Integer.parseInt(input);}
+        catch (NumberFormatException exc) {return -1;}
     }
 
     public static HashMap<String, Character> place(int entrance, char player){
@@ -23,7 +24,7 @@ public class InputHandler {
         String fieldToPlace;
 
         if (entrance < 1 || entrance > 7) {
-            System.out.println("bitte wähle einen der 7 Einwurfmöglichkeiten");
+            System.out.println("Bitte wähle einen der 7 Einwurfmöglichkeiten");
             return null;
         }
 
