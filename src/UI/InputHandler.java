@@ -1,5 +1,7 @@
 package UI;
 
+import GameLogic.GameCharacter;
+
 import java.util.HashMap;
 import java.util.Scanner;
 

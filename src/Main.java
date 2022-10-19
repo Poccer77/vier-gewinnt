@@ -1,48 +1,29 @@
-import GameLogic.DetermineWin;
-import GameLogic.FieldTranslator;
-import GameLogic.InputHandler;
-import GameLogic.Translator;
-import WindowHandler.ConsolePrinter;
+import GameLogic.*;
+import UI.ConsolePrinter;
+import UI.InputHandler;
+import UI.Translator;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class Main {
+    private static final String TEXT_UNENTSCHIEDEN = "Unentschieden";
+    private static final String TEXT_GEWONNEN = "%s hat gewonnen";
+    private static final String TEXT_SPIELER_1 = "Spieler 1";
+    private static final String TEXT_SPIELER_2 = "Spieler 2";
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws IOException {
+        var consolePrinter = new ConsolePrinter();
+        var translator = new Translator();
+        var inputHandler = new InputHandler(translator, consolePrinter);
 
-        HashMap<Integer, Character> emptyField = new HashMap<>();
+        var game = new Game(consolePrinter, translator, inputHandler);
 
-        for (String field : Translator.t.keySet()){
-            emptyField.put(Translator.t.get(field), null);
-        }
-        ConsolePrinter.build(emptyField);
-        char player;
-        char condition;
+        var gameResult = game.run();
 
-        while (true) {
-
-            HashMap<String, Character> newGameState;
-
-            player = 'x';
-            do {
-                int input = InputHandler.input(player);
-                newGameState = InputHandler.place(input, player);
-            } while (newGameState == null);
-            ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            condition = DetermineWin.win(InputHandler.newlyOccupiedField, newGameState);
-            if (condition != ' ') break;
-
-            player = 'o';
-            do {
-                int input = InputHandler.input(player);
-                newGameState = InputHandler.place(input, player);
-            } while (newGameState == null);
-            ConsolePrinter.build(FieldTranslator.draw(Translator.t, newGameState));
-            condition = DetermineWin.win(InputHandler.newlyOccupiedField, newGameState);
-            if (condition != ' ') break;
-        }
-
-        System.out.println((condition == 'd') ? "Unentschieden" : (((condition == 'x') ? "Spieler 1" : "Spieler 2") + " hat gewonnen!"));
+        System.out.println(switch (gameResult) {
+            case UNENTSCHIEDEN -> TEXT_UNENTSCHIEDEN;
+            case SPIELER_1_GEWINNT -> String.format(TEXT_GEWONNEN, TEXT_SPIELER_1);
+            case SPIELER_2_GEWINNT -> String.format(TEXT_GEWONNEN, TEXT_SPIELER_2);
+        });
     }
 }
